@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.LogSwasthFirebase">
-        <activity android:name=".EditVillagerDetails"></activity>
+        <activity android:name=".AnalysisActivity"></activity>
+        <activity android:name=".EditVillagerDetails" />
         <activity android:name=".RegisterVillager3" />
         <activity android:name=".RegisterVillager2" />
         <activity android:name=".ForgotActivity" />

@@ -15,6 +15,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class HomePage1 extends AppCompatActivity {
     private Button registerVillager,editVillager;
     private FirebaseAuth firebaseAuth;
+    private Button Analysis;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +23,7 @@ public class HomePage1 extends AppCompatActivity {
 
         registerVillager=(Button)findViewById(R.id.btRegisterVillager);
         editVillager=(Button)findViewById(R.id.btEditVillager);
+        Analysis=(Button)findViewById(R.id.analysis);
         firebaseAuth=FirebaseAuth.getInstance();
 
 
@@ -36,6 +38,13 @@ public class HomePage1 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent= new Intent(HomePage1.this,EditVillagerDetails.class);
+                startActivity(intent);
+            }
+        });
+        Analysis.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(HomePage1.this,AnalysisActivity.class);
                 startActivity(intent);
             }
         });
