@@ -1,9 +1,9 @@
 package com.example.logswasthfirebase;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.graphics.Color;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
@@ -26,34 +26,29 @@ import java.util.Map;
 import static android.graphics.Color.MAGENTA;
 import static android.graphics.Color.RED;
 
-public class AnalysisActivity extends AppCompatActivity {
+public class DiseaseDist extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_analysis);
+        setContentView(R.layout.activity_disease_dist);
 
         FirebaseDatabase rootNode;
         DatabaseReference reference;
         rootNode = FirebaseDatabase.getInstance();
         reference = rootNode.getReference("villagers");
 
-        GraphView graph=(GraphView)findViewById(R.id.graph);
-        BarGraphSeries<DataPoint> series= new BarGraphSeries<>();
-        DataPoint[] dp = new DataPoint[10];
+
 
         PieChart pieChart;
         pieChart = findViewById(R.id.pieChart_view);
 
 
-        ArrayList<Integer> agelsit = new ArrayList<Integer>();
+
         ArrayList<String> dislist = new ArrayList<String>();
-        int [] arr= new int[10];
+
         int [] disease = new int[6];
-        for(int i =0; i<10; i++)
-        {
-            arr[i]=0;
-        }
+
         for(int i =0; i<6; i++)
         {
             disease[i]=0;
@@ -64,15 +59,12 @@ public class AnalysisActivity extends AppCompatActivity {
 
                 for(DataSnapshot mydataSnapshot : dataSnapshot.getChildren()){
                     VillagerHelperClass villagersdetails = mydataSnapshot.getValue(VillagerHelperClass.class);
-                    agelsit.add(villagersdetails.getAge());
+
                     dislist.add(villagersdetails.getDisease());
 
                 }
 
-                for(int i : agelsit)
-                {
-                    arr[i/10]++;
-                }
+
 
                 for(String s : dislist)
                 {
@@ -102,21 +94,7 @@ public class AnalysisActivity extends AppCompatActivity {
 
 
 
-                for(int i=0;i<10;i++)
-                {
-                    dp[i]= new DataPoint(i*10,arr[i]);
-                }
-                series.resetData(dp);
-                graph.addSeries(series);
-                series.setDrawValuesOnTop(true);
-                series.setValuesOnTopColor(RED);
-                series.setSpacing(5);
-                series.setValueDependentColor(new ValueDependentColor<DataPoint>() {
-                    @Override
-                    public int get(DataPoint data) {
-                        return MAGENTA;
-                    }
-                });
+
                 ArrayList<PieEntry> pieEntries = new ArrayList<>();
                 String label = "type";
 
@@ -167,7 +145,6 @@ public class AnalysisActivity extends AppCompatActivity {
                 System.out.println("The read failed: " + databaseError.getCode());
             }
         });
-
 
     }
 }

@@ -1,9 +1,9 @@
 package com.example.logswasthfirebase;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.graphics.Color;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
@@ -14,49 +14,37 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.ValueDependentColor;
-import com.jjoe64.graphview.series.BarGraphSeries;
-import com.jjoe64.graphview.series.DataPoint;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import static android.graphics.Color.MAGENTA;
-import static android.graphics.Color.RED;
-
-public class AnalysisActivity extends AppCompatActivity {
+public class Educationdist extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_analysis);
+        setContentView(R.layout.activity_education);
 
         FirebaseDatabase rootNode;
         DatabaseReference reference;
         rootNode = FirebaseDatabase.getInstance();
         reference = rootNode.getReference("villagers");
 
-        GraphView graph=(GraphView)findViewById(R.id.graph);
-        BarGraphSeries<DataPoint> series= new BarGraphSeries<>();
-        DataPoint[] dp = new DataPoint[10];
+
 
         PieChart pieChart;
         pieChart = findViewById(R.id.pieChart_view);
 
 
-        ArrayList<Integer> agelsit = new ArrayList<Integer>();
-        ArrayList<String> dislist = new ArrayList<String>();
-        int [] arr= new int[10];
-        int [] disease = new int[6];
-        for(int i =0; i<10; i++)
-        {
-            arr[i]=0;
-        }
+
+        ArrayList<String> Edulist = new ArrayList<String>();
+
+        int [] Education = new int[6];
+
         for(int i =0; i<6; i++)
         {
-            disease[i]=0;
+            Education[i]=0;
         }
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -64,37 +52,34 @@ public class AnalysisActivity extends AppCompatActivity {
 
                 for(DataSnapshot mydataSnapshot : dataSnapshot.getChildren()){
                     VillagerHelperClass villagersdetails = mydataSnapshot.getValue(VillagerHelperClass.class);
-                    agelsit.add(villagersdetails.getAge());
-                    dislist.add(villagersdetails.getDisease());
+
+                    Edulist.add(villagersdetails.getEducation());
 
                 }
 
-                for(int i : agelsit)
+
+
+                for(String s : Edulist)
                 {
-                    arr[i/10]++;
-                }
-
-                for(String s : dislist)
-                {
-                    if(s.equals("Cardiovascular Diseases"))
+                    if(s.equals("Higher Secondary Certificate"))
                     {
-                        disease[1]++;
+                        Education[1]++;
                     }
-                    if(s.equals("Respiratory Diseases"))
+                    if(s.equals("Senior Secondary Certificate"))
                     {
-                        disease[2]++;
+                        Education[2]++;
                     }
-                    if(s.equals("Intestinal Diseases"))
+                    if(s.equals("Undergraduation"))
                     {
-                        disease[3]++;
+                        Education[3]++;
                     }
-                    if(s.equals("Neurological disorders"))
+                    if(s.equals("Postgraduation"))
                     {
-                        disease[4]++;
+                        Education[4]++;
                     }
-                    if(s.equals("Others"))
+                    if(s.equals("Other"))
                     {
-                        disease[5]++;
+                        Education[5]++;
                     }
                 }
 
@@ -102,31 +87,17 @@ public class AnalysisActivity extends AppCompatActivity {
 
 
 
-                for(int i=0;i<10;i++)
-                {
-                    dp[i]= new DataPoint(i*10,arr[i]);
-                }
-                series.resetData(dp);
-                graph.addSeries(series);
-                series.setDrawValuesOnTop(true);
-                series.setValuesOnTopColor(RED);
-                series.setSpacing(5);
-                series.setValueDependentColor(new ValueDependentColor<DataPoint>() {
-                    @Override
-                    public int get(DataPoint data) {
-                        return MAGENTA;
-                    }
-                });
+
                 ArrayList<PieEntry> pieEntries = new ArrayList<>();
                 String label = "type";
 
                 //initializing data
                 Map<String, Integer> typeAmountMap = new HashMap<>();
-                typeAmountMap.put("Cardiovascular",disease[1]);
-                typeAmountMap.put("Respiratory",disease[2]);
-                typeAmountMap.put("Intestinal",disease[3]);
-                typeAmountMap.put("Neurological",disease[4]);
-                typeAmountMap.put("others",disease[5]);
+                typeAmountMap.put("Higher Secondary Certificate",Education[1]);
+                typeAmountMap.put("Senior Secondary Certificate",Education[2]);
+                typeAmountMap.put("Undergraduation",Education[3]);
+                typeAmountMap.put("Postgraduation",Education[4]);
+                typeAmountMap.put("Other",Education[5]);
 
                 //initializing colors for the entries
                 ArrayList<Integer> colors = new ArrayList<>();

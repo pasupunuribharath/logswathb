@@ -1,5 +1,6 @@
 package com.example.logswasthfirebase;
 
+
 public class VillagerHelperClass {
 
     String Education,State,District,Income,Caste,Disease;

@@ -2,7 +2,6 @@ package com.example.logswasthfirebase;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,40 +15,27 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class RegisterVillager3 extends AppCompatActivity {
+public class EditVillager3 extends AppCompatActivity {
     private Spinner casteSpinner,diseaseSpinner,incomeSpinner;
     private String selectCaste,selectDisease,selectIncome;
     private ArrayAdapter<CharSequence> casteAdapter,incomeAdapter,diseaseAdapter;
-    private Button submit;
-    private ProgressDialog progressDialog;
-
+    private Button update;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register_villager3);
-        progressDialog=new ProgressDialog(this);
+        setContentView(R.layout.activity_edit_villager3);
+        Bundle bundle = getIntent().getExtras();
+        String caste=bundle.getString("Caste");
+        String disease=bundle.getString("Disease");
+        String income=bundle.getString("Income");
+        String aadhar=bundle.getString("Aadhar");
 
-        submit=(Button)findViewById(R.id.btnFinalSubmit);
-        Bundle bundle= getIntent().getExtras();
-        long aadhar=bundle.getLong("Aadhar");
-        int age=bundle.getInt("Age");
-        String edu=bundle.getStringArrayList("key").get(2);
-        String state=bundle.getStringArrayList("key").get(0);
-        String district=bundle.getStringArrayList("key").get(1);
-        //Log.v("aadhar",String.valueOf(aadhar));
-//        Log.v("Age",String.valueOf(age));
-//        Log.v("edu",edu);
-//        Log.v("state",state);
-//        Log.v("district",district);
-        FirebaseDatabase rootNode;
-        DatabaseReference reference;
-        rootNode = FirebaseDatabase.getInstance();
-        reference = rootNode.getReference("villagers");
-
+        update=(Button)findViewById(R.id.btnFinalSubmit);
         casteSpinner=findViewById(R.id.socio_economic);
         casteAdapter=ArrayAdapter.createFromResource(this,R.array.socio_economic_status,R.layout.spinner_layout);
         casteAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         casteSpinner.setAdapter(casteAdapter);
+        casteSpinner.setSelection(casteAdapter.getPosition(caste));
         casteSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -64,6 +50,7 @@ public class RegisterVillager3 extends AppCompatActivity {
         incomeAdapter=ArrayAdapter.createFromResource(this,R.array.income1,R.layout.spinner_layout);
         incomeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         incomeSpinner.setAdapter(incomeAdapter);
+        incomeSpinner.setSelection(incomeAdapter.getPosition(income));
         incomeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -80,6 +67,7 @@ public class RegisterVillager3 extends AppCompatActivity {
 
         diseaseAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         diseaseSpinner.setAdapter(diseaseAdapter);
+        diseaseSpinner.setSelection(diseaseAdapter.getPosition(disease));
         diseaseSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -91,49 +79,30 @@ public class RegisterVillager3 extends AppCompatActivity {
             }
         });
 
-        submit.setOnClickListener(new View.OnClickListener() {
+        update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                progressDialog.setMessage("Uploading Data To Cloud");
-                progressDialog.show();
-                if("Select Caste".equals(selectCaste) || "Select Disease".equals(selectDisease) ||"Select Income".equals(selectIncome)){
-                    progressDialog.dismiss();
-                    Toast.makeText(RegisterVillager3.this, "Enter All The Details", Toast.LENGTH_SHORT).show();
+                if ("Select Caste".equals(selectCaste) || "Select Disease".equals(selectDisease) || "Select Income".equals(selectIncome)) {
+                    Toast.makeText(EditVillager3.this, "Enter All The Details", Toast.LENGTH_SHORT).show();
                 }
                 else{
+                    String path = "villagers/"+aadhar;
+                    FirebaseDatabase database=FirebaseDatabase.getInstance();
+                    DatabaseReference reference=database.getReference(path);
 
-                    Log.v("aadhar",String.valueOf(aadhar));
-                    Log.v("Age",String.valueOf(age));
-                    Log.v("edu",edu);
-                    Log.v("state",state);
-                    Log.v("district",district);
-                    Log.v("Caste",selectCaste);
-                    Log.v("Disease",selectDisease);
-                    Log.v("Income",selectIncome);
+                    if(selectDisease!=disease){
+                        reference.child("disease").setValue(selectDisease);
+                    }
+                    if(selectIncome!=income){
+                        reference.child("income").setValue(selectIncome);
+                    }
+                    if(selectCaste!=caste){
+                        reference.child("caste").setValue(selectCaste);
+                    }
 
-                    //aadhar - long
-                    //age - int
-                    //edu = string
-                    //state = string
-                    //district = string
-                    //selectCaste = string
-                    //selectDisease = string
-                    //selectIncome = string
-
-
-                    VillagerHelperClass helperClass = new VillagerHelperClass(edu, state, district, selectIncome, selectCaste, selectDisease,age);
-                    reference.child(String.valueOf(aadhar)).setValue(helperClass);
-                    progressDialog.dismiss();
-                    Toast.makeText(RegisterVillager3.this, "Data Successfully Updated On Cloud", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(RegisterVillager3.this,HomePage1.class));
-
+                    startActivity(new Intent(EditVillager3.this,HomePage1.class));
                 }
             }
         });
-
-
-
-
-
     }
 }

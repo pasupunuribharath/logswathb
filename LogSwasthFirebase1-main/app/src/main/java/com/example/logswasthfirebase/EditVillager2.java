@@ -1,30 +1,56 @@
 package com.example.logswasthfirebase;
-
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class RegisterVillager2 extends AppCompatActivity  {
+public class EditVillager2 extends AppCompatActivity  {
     private String selectedDistrict, selectedState,selectEducation;
     private EditText aadharNumber,age;
     private Spinner stateSpinner, districtSpinner,educationSpinner;
     private ArrayAdapter<CharSequence> stateAdapter, districtAdapter,educationAdapter;
-    private Button submit;
+    private Button submit,update;
+    private EditText age12;
+    private TextView eAadharNum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register_villager2);
+        setContentView(R.layout.activity_edit_villager2);
+
+        Bundle bundle = getIntent().getExtras();
+        String aadhar=bundle.getString("Aadhar");
+        String age=bundle.getString("Age");
+        String education=bundle.getString("Education");
+        String state=bundle.getString("State");
+        String district=bundle.getString("District");
+        String income=bundle.getString("Income");
+        String caste=bundle.getString("Caste");
+        String disease=bundle.getString("Disease");
+
+        eAadharNum=(TextView)findViewById(R.id.eteAadharNumber);
+        eAadharNum.setText(aadhar);
+
+        age12=(EditText)findViewById(R.id.etAge1);
+        age12.setText(age);
+
 
         stateSpinner = findViewById(R.id.spinner_indian_states);
         stateAdapter = ArrayAdapter.createFromResource(this,
@@ -33,15 +59,15 @@ public class RegisterVillager2 extends AppCompatActivity  {
         // Specify the layout to use when the list of choices appear
         stateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        stateSpinner.setAdapter(stateAdapter);            //Set the adapter to the spinner to populate the State Spinner
-
+        stateSpinner.setAdapter(stateAdapter);
+        stateSpinner.setSelection(stateAdapter.getPosition(state));
+        //Set the adapter to the spinner to populate the State Spinner
         //When any item of the stateSpinner uis selected
         stateSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 //Define City Spinner but we will populate the options through the selected state
                 districtSpinner = findViewById(R.id.spinner_indian_districts);
-
                 selectedState = stateSpinner.getSelectedItem().toString();      //Obtain the selected State
 
                 int parentID = parent.getId();
@@ -165,7 +191,7 @@ public class RegisterVillager2 extends AppCompatActivity  {
                     }
                     districtAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);     // Specify the layout to use when the list of choices appears
                     districtSpinner.setAdapter(districtAdapter);        //Populate the list of Districts in respect of the State selected
-
+                    districtSpinner.setSelection(districtAdapter.getPosition(district));
                     //To obtain the selected District from the spinner
                     districtSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
@@ -191,6 +217,7 @@ public class RegisterVillager2 extends AppCompatActivity  {
 
         educationAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         educationSpinner.setAdapter(educationAdapter);
+        educationSpinner.setSelection(educationAdapter.getPosition(education));
         educationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -202,44 +229,58 @@ public class RegisterVillager2 extends AppCompatActivity  {
             }
         });
         aadharNumber=(EditText)findViewById(R.id.etAadharNumber);
-        age=(EditText)findViewById(R.id.etAge1);
         submit=(Button)findViewById(R.id.btnSubmitDatabase);
-
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String aadharNum=aadharNumber.getText().toString();
-                String age1=age.getText().toString();
-                if(aadharNum.isEmpty() || age1.isEmpty() || "Select Your District".equals(selectedDistrict) || "Select Your State".equals(selectedState) || "Select Education".equals(selectEducation) ){
-                    Toast.makeText(RegisterVillager2.this,"Enter All The Details",Toast.LENGTH_SHORT).show();
-                }
-                else if(aadharNum.length()!=12){
-                    Toast.makeText(RegisterVillager2.this,"Enter Aadhar Number Correctly",Toast.LENGTH_SHORT).show();
+
+            }
+        });
+        update=(Button)findViewById(R.id.btnSubmitDatabase);
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String age1=age12.getText().toString();
+                if( age1.isEmpty() || "Select Your District".equals(selectedDistrict) || "Select Your State".equals(selectedState) || "Select Education".equals(selectEducation) ){
+                    Toast.makeText(EditVillager2.this,"Enter All The Details",Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    long aadharn=0;
-                    aadharn=Long.parseLong(aadharNum);
+                    String path = "villagers/"+aadhar;
+                    FirebaseDatabase database=FirebaseDatabase.getInstance();
+                    DatabaseReference reference=database.getReference(path);
                     int agee=0;
                     agee=Integer.parseInt(age1);
-                    if(aadharn<=0){
-                        Toast.makeText(RegisterVillager2.this,"Enter Correct Aadhar Number",Toast.LENGTH_SHORT).show();
-                    }
-                    else if(agee<=0 || agee>110){
-                        Toast.makeText(RegisterVillager2.this,"Enter Correct Age",Toast.LENGTH_SHORT).show();
+                    if(agee<=0 || agee>110){
+                        Toast.makeText(EditVillager2.this,"Enter Correct Age",Toast.LENGTH_SHORT).show();
                     }else{
-                        Bundle bundle= new Bundle();
-                        ArrayList<String>  str = new ArrayList<String>();
-                        str.add(selectedState);
-                        str.add(selectedDistrict);
-                        str.add(selectEducation);
-
-                        bundle.putInt("Age",agee);
-                        bundle.putLong("Aadhar",aadharn);
-                        bundle.putStringArrayList("key",str);
-
-                        Intent intent=new Intent(RegisterVillager2.this,RegisterVillager3.class);
-                        intent.putExtras(bundle);
-                        startActivity(intent);
+                        Log.v("age",Integer.toString(agee));
+                        Log.v("age",age);
+                        if(agee!=Integer.parseInt(age)){
+                            reference.child("age").setValue(agee);
+                        }
+                        if(selectedDistrict!=district){
+                            reference.child("district").setValue(selectedDistrict);
+                            Log.v("district",selectedDistrict);
+                        }
+                        if(selectedState!=state){
+                            reference.child("state").setValue(selectedState);
+                            Log.v("district",selectedState);
+                        }
+                        if(selectEducation!=education){
+                            reference.child("education").setValue(selectEducation);
+                            Log.v("district",selectEducation);
+                        }
+                        Bundle bn=new Bundle();
+                        //Log.v("income",income);
+                        //Log.v("caste",caste);
+                        //Log.v("disease",disease);
+                        bn.putString("Aadhar",aadhar);
+                        bn.putString("Income",income);
+                        bn.putString("Caste",caste);
+                        bn.putString("Disease",disease);
+                        Intent intent2=new Intent(EditVillager2.this,EditVillager3.class);
+                        intent2.putExtras(bn);
+                        startActivity(intent2);
                     }
                 }
             }
