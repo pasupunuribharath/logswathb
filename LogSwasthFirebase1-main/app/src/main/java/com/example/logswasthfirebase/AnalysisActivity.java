@@ -1,170 +1,97 @@
 package com.example.logswasthfirebase;
 
-import android.graphics.Color;
+
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.ValueDependentColor;
-import com.jjoe64.graphview.series.BarGraphSeries;
-import com.jjoe64.graphview.series.DataPoint;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
-import static android.graphics.Color.MAGENTA;
-import static android.graphics.Color.RED;
 
 public class AnalysisActivity extends AppCompatActivity {
-
+    private Spinner selectSpinner;
+    private ArrayAdapter selectAdapter;
+    private String selectAnalysis;
+    private Button numericalAnalysis,graphicalAnalysis;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_analysis);
 
-        FirebaseDatabase rootNode;
-        DatabaseReference reference;
-        rootNode = FirebaseDatabase.getInstance();
-        reference = rootNode.getReference("villagers");
-
-        GraphView graph=(GraphView)findViewById(R.id.graph);
-        BarGraphSeries<DataPoint> series= new BarGraphSeries<>();
-        DataPoint[] dp = new DataPoint[10];
-
-        PieChart pieChart;
-        pieChart = findViewById(R.id.pieChart_view);
-
-
-        ArrayList<Integer> agelsit = new ArrayList<Integer>();
-        ArrayList<String> dislist = new ArrayList<String>();
-        int [] arr= new int[10];
-        int [] disease = new int[6];
-        for(int i =0; i<10; i++)
-        {
-            arr[i]=0;
-        }
-        for(int i =0; i<6; i++)
-        {
-            disease[i]=0;
-        }
-        reference.addValueEventListener(new ValueEventListener() {
+        selectSpinner =findViewById(R.id.analysed_parameter);
+        selectAdapter=ArrayAdapter.createFromResource(this,R.array.parameter,R.layout.spinner_layout);
+        selectAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        selectSpinner.setAdapter(selectAdapter);
+        selectSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                for(DataSnapshot mydataSnapshot : dataSnapshot.getChildren()){
-                    VillagerHelperClass villagersdetails = mydataSnapshot.getValue(VillagerHelperClass.class);
-                    agelsit.add(villagersdetails.getAge());
-                    dislist.add(villagersdetails.getDisease());
-
-                }
-
-                for(int i : agelsit)
-                {
-                    arr[i/10]++;
-                }
-
-                for(String s : dislist)
-                {
-                    if(s.equals("Cardiovascular Diseases"))
-                    {
-                        disease[1]++;
-                    }
-                    if(s.equals("Respiratory Diseases"))
-                    {
-                        disease[2]++;
-                    }
-                    if(s.equals("Intestinal Diseases"))
-                    {
-                        disease[3]++;
-                    }
-                    if(s.equals("Neurological disorders"))
-                    {
-                        disease[4]++;
-                    }
-                    if(s.equals("Others"))
-                    {
-                        disease[5]++;
-                    }
-                }
-
-
-
-
-
-                for(int i=0;i<10;i++)
-                {
-                    dp[i]= new DataPoint(i*10,arr[i]);
-                }
-                series.resetData(dp);
-                graph.addSeries(series);
-                series.setDrawValuesOnTop(true);
-                series.setValuesOnTopColor(RED);
-                series.setSpacing(5);
-                series.setValueDependentColor(new ValueDependentColor<DataPoint>() {
-                    @Override
-                    public int get(DataPoint data) {
-                        return MAGENTA;
-                    }
-                });
-                ArrayList<PieEntry> pieEntries = new ArrayList<>();
-                String label = "type";
-
-                //initializing data
-                Map<String, Integer> typeAmountMap = new HashMap<>();
-                typeAmountMap.put("Cardiovascular",disease[1]);
-                typeAmountMap.put("Respiratory",disease[2]);
-                typeAmountMap.put("Intestinal",disease[3]);
-                typeAmountMap.put("Neurological",disease[4]);
-                typeAmountMap.put("others",disease[5]);
-
-                //initializing colors for the entries
-                ArrayList<Integer> colors = new ArrayList<>();
-                colors.add(Color.parseColor("#304567"));
-                colors.add(Color.parseColor("#309967"));
-                colors.add(Color.parseColor("#476567"));
-                colors.add(Color.parseColor("#890567"));
-                colors.add(Color.parseColor("#a35567"));
-                colors.add(Color.parseColor("#ff5f67"));
-                colors.add(Color.parseColor("#3ca567"));
-
-                //input data and fit data into pie chart entry
-                for(String type: typeAmountMap.keySet()){
-                    pieEntries.add(new PieEntry(typeAmountMap.get(type).floatValue(), type));
-                }
-
-                //collecting the entries with label name
-                PieDataSet pieDataSet = new PieDataSet(pieEntries,label);
-                //setting text size of the value
-                pieDataSet.setValueTextSize(12f);
-                //providing color list for coloring different entries
-                pieDataSet.setColors(colors);
-                //grouping the data set from entry to chart
-                PieData pieData = new PieData(pieDataSet);
-                //showing the value of the entries, default true if not set
-                pieData.setDrawValues(true);
-
-                pieChart.setData(pieData);
-                pieChart.invalidate();
-
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectAnalysis=selectSpinner.getSelectedItem().toString();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
 
             }
+        });
 
+        numericalAnalysis=(Button)findViewById(R.id.btnNa);
+        graphicalAnalysis=(Button)findViewById(R.id.btnGv);
 
-
+        numericalAnalysis.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
+            public void onClick(View v) {
+                if(selectAnalysis.equals("Select Parameter To Be Analysed")){
+                    Toast.makeText(AnalysisActivity.this, getResources().getString(R.string.selectPara), Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    if(selectAnalysis.equals("Income")){
+                        startActivity(new Intent(AnalysisActivity.this,Numerical_Analysis_Income.class));
+                    }
+                    else if(selectAnalysis.equals("Caste")){
+                        startActivity(new Intent(AnalysisActivity.this,NumericalAnalysisCaste.class));
+                    }
+                    else if(selectAnalysis.equals("Disease")){
+                        startActivity(new Intent(AnalysisActivity.this,NumericalAnalysis.class));
+                    }
+                    else if(selectAnalysis.equals("Education")){
+                        startActivity(new Intent(AnalysisActivity.this,NumericalAnalysisEducation.class));
+                    }
+                    else{
+                        startActivity(new Intent(AnalysisActivity.this,NumericalAnalysisAge.class));
+                    }
+                }
+            }
+        });
+
+       graphicalAnalysis.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(selectAnalysis.equals("Select Parameter To Be Analysed")){
+                    Toast.makeText(AnalysisActivity.this, getResources().getString(R.string.selectPara), Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    if(selectAnalysis.equals("Income")){
+                        startActivity(new Intent(AnalysisActivity.this,Incomeact.class));
+                    }
+                    else if(selectAnalysis.equals("Caste")){
+                        startActivity(new Intent(AnalysisActivity.this,Caste.class));
+                    }
+                    else if(selectAnalysis.equals("Disease")){
+                        startActivity(new Intent(AnalysisActivity.this,DiseaseDist.class));
+                    }
+                    else if(selectAnalysis.equals("Education")){
+                        startActivity(new Intent(AnalysisActivity.this,Educationdist.class));
+                    }
+                    else{
+                        startActivity(new Intent(AnalysisActivity.this,AgeDist.class));
+                    }
+                }
             }
         });
 

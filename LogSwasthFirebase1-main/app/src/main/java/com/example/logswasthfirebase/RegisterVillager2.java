@@ -211,10 +211,10 @@ public class RegisterVillager2 extends AppCompatActivity  {
                 String aadharNum=aadharNumber.getText().toString();
                 String age1=age.getText().toString();
                 if(aadharNum.isEmpty() || age1.isEmpty() || "Select Your District".equals(selectedDistrict) || "Select Your State".equals(selectedState) || "Select Education".equals(selectEducation) ){
-                    Toast.makeText(RegisterVillager2.this,"Enter All The Details",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterVillager2.this,getResources().getString(R.string.enterAll),Toast.LENGTH_SHORT).show();
                 }
                 else if(aadharNum.length()!=12){
-                    Toast.makeText(RegisterVillager2.this,"Enter Aadhar Number Correctly",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterVillager2.this,getResources().getString(R.string.enterAadharnumb),Toast.LENGTH_SHORT).show();
                 }
                 else{
                     long aadharn=0;
@@ -222,10 +222,10 @@ public class RegisterVillager2 extends AppCompatActivity  {
                     int agee=0;
                     agee=Integer.parseInt(age1);
                     if(aadharn<=0){
-                        Toast.makeText(RegisterVillager2.this,"Enter Correct Aadhar Number",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterVillager2.this,getResources().getString(R.string.enterAadharnumb),Toast.LENGTH_SHORT).show();
                     }
                     else if(agee<=0 || agee>110){
-                        Toast.makeText(RegisterVillager2.this,"Enter Correct Age",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterVillager2.this,getResources().getString(R.string.enterCorrectAge),Toast.LENGTH_SHORT).show();
                     }else{
                         Bundle bundle= new Bundle();
                         ArrayList<String>  str = new ArrayList<String>();

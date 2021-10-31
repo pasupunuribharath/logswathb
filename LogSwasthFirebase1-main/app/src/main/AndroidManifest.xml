@@ -9,14 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.LogSwasthFirebase">
-        <activity android:name=".Caste"></activity>
-        <activity android:name=".Incomeact" />
-        <activity android:name=".IncomeDist" />
-        <activity android:name=".Educationdist" />
-        <activity android:name=".DiseaseDist" />
-        <activity android:name=".AgeDist" />
-        <activity android:name=".Graphical" />
-        <activity android:name=".AnalysisAct" />
+        <activity android:name=".NumericalAnalysisAge" />
+        <activity android:name=".NumericalAnalysisEducation" />
+        <activity android:name=".NumericalAnalysisCaste" />
+        <activity android:name=".Numerical_Analysis_Income" />
+        <activity android:name=".NumericalAnalysis" />
         <activity android:name=".AnalysisActivity" />
         <activity android:name=".EditVillager3" />
         <activity android:name=".EditVillager2" />
@@ -25,6 +22,11 @@
         <activity android:name=".RegisterVillager2" />
         <activity android:name=".ForgotActivity" />
         <activity android:name=".HomePage1" />
+        <activity android:name=".AgeDist" />
+        <activity android:name=".Educationdist" />
+        <activity android:name=".Incomeact" />
+        <activity android:name=".Caste" />
+        <activity android:name=".DiseaseDist" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

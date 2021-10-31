@@ -19,7 +19,6 @@ public class HomePage1 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page1);
-
         registerVillager=(Button)findViewById(R.id.btRegisterVillager);
         editVillager=(Button)findViewById(R.id.btEditVillager);
         firebaseAuth=FirebaseAuth.getInstance();
@@ -28,7 +27,7 @@ public class HomePage1 extends AppCompatActivity {
         Analysis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(HomePage1.this,AnalysisAct.class));
+                startActivity(new Intent(HomePage1.this,AnalysisActivity.class));
             }
         });
 

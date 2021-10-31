@@ -31,14 +31,10 @@ import static android.graphics.Color.RED;
 public class AgeDist extends AppCompatActivity {
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_age_dist);
-
-
-
 
         FirebaseDatabase rootNode;
         DatabaseReference reference;

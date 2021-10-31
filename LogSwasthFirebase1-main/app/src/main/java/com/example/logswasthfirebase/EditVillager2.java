@@ -242,7 +242,7 @@ public class EditVillager2 extends AppCompatActivity  {
             public void onClick(View v) {
                 String age1=age12.getText().toString();
                 if( age1.isEmpty() || "Select Your District".equals(selectedDistrict) || "Select Your State".equals(selectedState) || "Select Education".equals(selectEducation) ){
-                    Toast.makeText(EditVillager2.this,"Enter All The Details",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditVillager2.this,getResources().getString(R.string.enterAll),Toast.LENGTH_SHORT).show();
                 }
                 else{
                     String path = "villagers/"+aadhar;
@@ -251,7 +251,7 @@ public class EditVillager2 extends AppCompatActivity  {
                     int agee=0;
                     agee=Integer.parseInt(age1);
                     if(agee<=0 || agee>110){
-                        Toast.makeText(EditVillager2.this,"Enter Correct Age",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EditVillager2.this,getResources().getString(R.string.enterCorrectAge),Toast.LENGTH_SHORT).show();
                     }else{
                         Log.v("age",Integer.toString(agee));
                         Log.v("age",age);

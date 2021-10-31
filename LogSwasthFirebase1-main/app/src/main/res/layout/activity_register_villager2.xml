@@ -7,19 +7,39 @@
     tools:context=".RegisterVillager2">
 
 
+    <ImageView
+        android:layout_width="412dp"
+        android:layout_height="185dp"
+        android:rotation="180"
+        android:scaleType="fitXY"
+        android:src="@drawable/line"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent=".27"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:ignore="MissingConstraints" />
+
     <EditText
         android:id="@+id/etAadharNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
+        android:background="@drawable/edittext"
         android:ems="10"
-        android:hint="Enter Aadhar Number"
+        android:hint="@string/enterAadhar"
         android:inputType="numberSigned"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.472"
+        app:layout_constraintHorizontal_bias="0.621"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.125" />
+        app:layout_constraintVertical_bias="0.138" />
 
     <TextView
         android:id="@+id/textView_indian_states"
@@ -28,26 +48,25 @@
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:padding="6dp"
-        android:text="State*"
-        android:textColor="#555555"
+        android:textColor="@color/purple_500"
+        android:text="@string/state"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.068"
+        app:layout_constraintHorizontal_bias="0.049"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.635" />
+        app:layout_constraintVertical_bias="0.527" />
 
     <Spinner
         android:id="@+id/spinner_indian_states"
-        android:layout_width="255dp"
-        android:layout_height="35dp"
-        android:layout_below="@id/textView_indian_states"
+        android:layout_width="250dp"
+        android:layout_height="43dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.788"
+        app:layout_constraintHorizontal_bias="0.875"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.633" />
+        app:layout_constraintVertical_bias="0.518" />
 
     <TextView
         android:id="@+id/textView_indian_districts"
@@ -57,77 +76,84 @@
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:padding="6dp"
-        android:text="District*"
-        android:textColor="#555555"
+        android:text="@string/district"
+        android:textColor="@color/purple_500"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.069"
+        app:layout_constraintHorizontal_bias="0.053"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.749" />
+        app:layout_constraintVertical_bias="0.64" />
 
     <Spinner
         android:id="@+id/spinner_indian_districts"
         android:layout_width="254dp"
         android:layout_height="35dp"
-        android:layout_below="@id/textView_indian_districts"
+        android:spinnerMode="dropdown"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.783"
+        app:layout_constraintHorizontal_bias="0.898"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.748" />
+        app:layout_constraintVertical_bias="0.639" />
 
     <EditText
         android:id="@+id/etAge1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/edittext"
         android:ems="10"
-        android:hint="Enter Age"
+        android:hint="@string/enterAge"
         android:inputType="number"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.636"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.256" />
+        app:layout_constraintVertical_bias="0.248" />
 
     <Spinner
         android:id="@+id/education_level"
-        android:layout_width="257dp"
-        android:layout_height="38dp"
+        android:layout_width="209dp"
+        android:layout_height="57dp"
         android:paddingLeft="8dp"
         android:popupBackground="@android:color/white"
         android:scrollbars="none"
         android:spinnerMode="dropdown"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.618"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.481" />
+        app:layout_constraintVertical_bias="0.394" />
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Select Highest Education Qualification"
-        android:textSize="18sp"
+        android:layout_width="87dp"
+        android:layout_height="46dp"
+        android:text="@string/highestEd"
+        android:textSize="15sp"
+        android:textColor="@color/purple_500"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.049"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.405" />
+        app:layout_constraintVertical_bias="0.404" />
 
     <Button
         android:id="@+id/btnSubmitDatabase"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Proceed To Next Page"
+        android:text="@string/proceedTo"
+        android:background="@drawable/button_bg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.484"
+        app:layout_constraintHorizontal_bias="0.561"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.879" />
+        app:layout_constraintVertical_bias="0.793" />
 </androidx.constraintlayout.widget.ConstraintLayout>

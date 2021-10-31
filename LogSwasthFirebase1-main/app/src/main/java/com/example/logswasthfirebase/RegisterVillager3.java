@@ -98,7 +98,7 @@ public class RegisterVillager3 extends AppCompatActivity {
                 progressDialog.show();
                 if("Select Caste".equals(selectCaste) || "Select Disease".equals(selectDisease) ||"Select Income".equals(selectIncome)){
                     progressDialog.dismiss();
-                    Toast.makeText(RegisterVillager3.this, "Enter All The Details", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterVillager3.this, getResources().getString(R.string.enterAll), Toast.LENGTH_SHORT).show();
                 }
                 else{
 
@@ -124,7 +124,7 @@ public class RegisterVillager3 extends AppCompatActivity {
                     VillagerHelperClass helperClass = new VillagerHelperClass(edu, state, district, selectIncome, selectCaste, selectDisease,age);
                     reference.child(String.valueOf(aadhar)).setValue(helperClass);
                     progressDialog.dismiss();
-                    Toast.makeText(RegisterVillager3.this, "Data Successfully Updated On Cloud", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterVillager3.this, getResources().getString(R.string.updateCloud), Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(RegisterVillager3.this,HomePage1.class));
 
                 }

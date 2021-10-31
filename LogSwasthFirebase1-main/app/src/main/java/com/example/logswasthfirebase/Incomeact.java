@@ -84,7 +84,7 @@ public class Incomeact extends AppCompatActivity {
                 series.resetData(dp);
                 graph.addSeries(series);
                 series.setDrawBackground(true);
-
+                graph.getViewport().setMinY(0);
                 series.setDrawDataPoints(true);
                 graph.getViewport().setMinX(1);
                 graph.getViewport().setMaxX(4);

@@ -30,18 +30,18 @@ public class ForgotActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String s1=reEmail.getText().toString();
                 if(s1.isEmpty()){
-                    Toast.makeText(ForgotActivity.this, "Enter Details Correctly", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ForgotActivity.this, getResources().getString(R.string.detailCorrect), Toast.LENGTH_SHORT).show();
                 }
                 else{
                     firebaseAuth.sendPasswordResetEmail(s1).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if(task.isSuccessful()){
-                                Toast.makeText(ForgotActivity.this, "Reset Password Link Sent", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ForgotActivity.this, getResources().getString(R.string.resetLink), Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(ForgotActivity.this,MainActivity.class));
                             }
                             else{
-                                Toast.makeText(ForgotActivity.this, "Reset Password Link Not Sent", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ForgotActivity.this, getResources().getString(R.string.noresetLink), Toast.LENGTH_SHORT).show();
                             }
                         }
                     });

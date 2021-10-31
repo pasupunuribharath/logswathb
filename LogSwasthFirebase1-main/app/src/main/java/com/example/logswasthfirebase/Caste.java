@@ -92,6 +92,7 @@ public class Caste extends AppCompatActivity {
                 series.setDrawValuesOnTop(true);
                 series.setSpacing(5);
                 graph.getViewport().setMinX(1);
+                graph.getViewport().setMinY(0);
                 graph.getViewport().setMaxX(4);
                 graph.setTitle("Caste Distribution");
                 graph.getViewport().setXAxisBoundsManual(true);

@@ -83,7 +83,7 @@ public class EditVillager3 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if ("Select Caste".equals(selectCaste) || "Select Disease".equals(selectDisease) || "Select Income".equals(selectIncome)) {
-                    Toast.makeText(EditVillager3.this, "Enter All The Details", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditVillager3.this, getResources().getString(R.string.enterAll), Toast.LENGTH_SHORT).show();
                 }
                 else{
                     String path = "villagers/"+aadhar;
@@ -99,7 +99,7 @@ public class EditVillager3 extends AppCompatActivity {
                     if(selectCaste!=caste){
                         reference.child("caste").setValue(selectCaste);
                     }
-
+                    Toast.makeText(EditVillager3.this,getResources().getString(R.string.updateCloud),Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(EditVillager3.this,HomePage1.class));
                 }
             }

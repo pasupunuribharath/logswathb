@@ -45,7 +45,7 @@ public class EditVillagerDetails extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot snapshot) {
                         if (snapshot.child(aadhar).exists()) {
-                            Toast.makeText(EditVillagerDetails.this, "Aadhar number present", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(EditVillagerDetails.this, getResources().getString(R.string.correctAadhar), Toast.LENGTH_SHORT).show();
                             String path = "villagers/"+aadhar;
                             FirebaseDatabase database=FirebaseDatabase.getInstance();
                             DatabaseReference reference=database.getReference(path);
@@ -92,7 +92,7 @@ public class EditVillagerDetails extends AppCompatActivity {
                             });
 
                         }else{
-                            Toast.makeText(EditVillagerDetails.this, "Enter Aadhar Number Correctly", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(EditVillagerDetails.this, getResources().getString(R.string.enterAadharnumb), Toast.LENGTH_SHORT).show();
                         }
                     }
 

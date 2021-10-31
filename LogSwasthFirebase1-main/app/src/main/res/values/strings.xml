@@ -1,5 +1,82 @@
 <resources>
-    <string name="app_name">LogSwasth Firebase</string>
+    <string name="app_name">LogSwasth</string>
+    <string name="welcome">Welcome</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="reset">Reset Password</string>
+    <string name="changeLang">Change Language</string>
+    <string name="enterEmail">Enter Email</string>
+    <string name="enterPassword">Enter Password</string>
+    <string name="registerVillager">Register Villagers</string>
+    <string name="editVillager">Edit Villager Details</string>
+    <string name="viewAnalysed">View Analysed Data</string>
+    <string name="enterAadhar">Enter Aadhar Number</string>
+    <string name="enterAge">Enter Age</string>
+    <string name="highestEd">Education Qualification</string>
+    <string name="state">State*</string>
+    <string name="district">District*</string>
+    <string name="aadharnum">Aadhar Number :</string>
+    <string name="age">Age</string>
+    <string name="proceedTo">Proceed to next page</string>
+    <string name="selectIncome">Select Income*</string>
+    <string name="selectCaste">Select Caste*</string>
+    <string name="selectDisease">Select Disease*</string>
+    <string name="submitbt">Submit</string>
+    <string name="updataData">Update Database</string>
+    <string name="para">Select Parameter To Be Analysed</string>
+    <string name="numerical">Show Numerical Analysis</string>
+    <string name="graphical">View Graphical Visualization</string>
+    <string name="agedis">Age Distribution</string>
+    <string name="disOfPop">Distribution Of Population Over Age</string>
+    <string name="below18">Below 18</string>
+    <string name="bet18to65">Between 18 to 65</string>
+    <string name="above65">Above 65</string>
+
+    <string name="incomeran">Income Range</string>
+    <string name="incomedis">Income Distribution Over Population</string>
+    <string name="below10">Below 10000</string>
+    <string name="bet1">Between 10000-50000</string>
+    <string name="bet2">Between 50000-150000</string>
+    <string name="above50">Above 150000</string>
+
+    <string name="caste">Caste</string>
+    <string name="castedis">Distribution Of Caste Over Population</string>
+    <string name="edu">Education Qualification</string>
+    <string name="edudis">Number of people having education qualification</string>
+    <string name="hsc">Higher Secondary Certificate</string>
+    <string name="ssc">Senior Secondary Certificate</string>
+    <string name="und">Undergraduation</string>
+    <string name="post">Postgraduation</string>
+    <string name="other">Other</string>
+
+    <string name="general">General</string>
+    <string name="sc">Scheduled Caste(SC)</string>
+    <string name="st">Scheduled Tribes(ST)</string>
+    <string name="obc">Other Backward Classes</string>
+
+    <string name="dis">Disease</string>
+    <string name="disDist">Number Of People That Are Suffering</string>
+    <string name="cd">Cardiovascular Diseases</string>
+    <string name="rd">Respiratory Diseases</string>
+    <string name="id">Intestinal Diseases</string>
+    <string name="nd">Neurological Disorders</string>
+    <string name="od">Others</string>
+
+
+    <string name="enterAll">Enter All The Details</string>
+    <string name="loginsuccess">Login Successfull !!</string>
+    <string name="loginunsuccess">Login Unsuccessfull !!</string>
+    <string name="enterAadharnumb">Enter Aadhar Number Correctly</string>
+    <string name="enterCorrectAge">Enter Correct Age</string>
+    <string name="updateCloud">Data Successfully Updated On Cloud</string>
+    <string name="correctAadhar">Aadhar Number Present In Database</string>
+    <string name="selectPara">Select The Parameter</string>
+    <string name="detailCorrect">Enter Details Correctly</string>
+    <string name="resetLink">Reset Password Link Sent</string>
+    <string name="noresetLink">Reset Password Link Not Sent</string>
+    <string name="signin">Signing In</string>
+    <string name="logout">Logout</string>
     <string-array name="education_level">
         <item>Select Education</item>
         <item>Higher Secondary Certificate</item>
@@ -21,6 +98,14 @@
         <item>10000-50000</item>
         <item>50000-150000</item>
         <item>Above 150000</item>
+    </string-array>
+    <string-array name="parameter">
+        <item>Select Parameter To Be Analysed</item>
+        <item>Age</item>
+        <item>Income</item>
+        <item>Education</item>
+        <item>Disease</item>
+        <item>Caste</item>
     </string-array>
     <string-array name="disease_domain">
         <item>Select Disease</item>
